@@ -3,15 +3,15 @@ pipeline {
 
     environment {
         REGISTRY = "docker.io"                  // DockerHub registry
-        FRONTEND_IMAGE = "reyadocker/frontend"  // frontend repo
-        BACKEND_IMAGE = "reyadocker/backend"    // backend repo
-        PASSWORD = credentials('dockerhub-pass') // Jenkins credential ID
+        FRONTEND_IMAGE = "ghansyamaws/usercreds-image"  // frontend repo
+        BACKEND_IMAGE = "ghansyamaws/server-image"    // backend repo
+        PASSWORD = credentials('Docker@hub2025;') // Jenkins credential ID
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/ReyazShaik/dockerproject.git'
+                git 'https://github.com/githubWithGHANA/cicd-docker-swarm-pipeline.git'
             }
         }
 
@@ -37,7 +37,7 @@ pipeline {
 
         stage('Deploy to Swarm') {
             steps {
-                sh 'docker stack deploy -c docker-compose.yml bank'
+                sh 'docker stack deploy -c docker-compose.yml userdata-deploy'
             }
         }
     }
