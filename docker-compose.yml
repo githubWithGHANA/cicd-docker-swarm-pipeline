@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .                # root folder
+      dockerfile: Dockerfile.frontend   # frontend Dockerfile in home
+    image: my-frontend:latest
+    ports:
+      - "81:80"
+    deploy:
+      replicas: 3
+    networks:
+      - appnet
+
+  backend:
+    build:
+      context: .       # backend folder
+      dockerfile: Dockerfile.backend    # backend Dockerfile inside backend/
+    image: my-backend:latest
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 2
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: overlay
